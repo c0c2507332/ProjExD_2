@@ -17,24 +17,35 @@ DELTA = {
 os.chdir(os.path.dirname(os.path.abspath(__file__)))    
 
 def get_kk_imgs() -> dict[tuple[int,int],pg.Surface]:
+    """
+    演習:3
+    移動量タプルに対応するこうかとんSurfaceの辞書を生成する関数
+    戻り値: {(dx, dy): Surface} の辞書
+    """
     base_img = pg.image.load("fig/3.png")
     flipped_img = pg.transform.flip(base_img, True, False)  # 左右反転
     
     KK_imge = {
-        (0, 0): pg.transform.rotozoom(base_img, 0, 0.9),
-        (-5, 0): pg.transform.rotozoom(base_img, 0, 0.9),
-        (-5, -5): pg.transform.rotozoom(base_img, -45, 0.9),
-        (0, -5): pg.transform.rotozoom(flipped_img, 90, 0.9),
-        (+5, -5): pg.transform.rotozoom(flipped_img, 45, 0.9),
-        (+5, 0): pg.transform.rotozoom(flipped_img, 0, 0.9),
-        (+5, +5): pg.transform.rotozoom(flipped_img, -45, 0.9),
-        (0, +5): pg.transform.rotozoom(flipped_img, -90, 0.9),
-        (-5, +5): pg.transform.rotozoom(base_img, 45, 0.9),
+        (0, 0): pg.transform.rotozoom(base_img, 0, 0.9), #静止
+        (-5, +5): pg.transform.rotozoom(base_img, 45, 0.9), #左下移動
+        (-5, 0): pg.transform.rotozoom(base_img, 0, 0.9), #左移動
+        (-5, -5): pg.transform.rotozoom(base_img, -45, 0.9), #左上移動
+        (0, -5): pg.transform.rotozoom(flipped_img, 90, 0.9), #上移動
+        (+5, -5): pg.transform.rotozoom(flipped_img, 45, 0.9), #右上移動
+        (+5, 0): pg.transform.rotozoom(flipped_img, 0, 0.9), #右移動
+        (+5, +5): pg.transform.rotozoom(flipped_img, -45, 0.9), #右下移動
+        (0, +5): pg.transform.rotozoom(flipped_img, -90, 0.9), #下移動
     }
     return KK_imge
 
 
 def gameover(screen:pg.Surface) -> None:
+    """
+    演習:1
+    ゲームオーバー画面を表示する関数
+    引数 screen: 画面Surface
+    画面をブラックアウトし、泣いているこうかとんとGame Overを表示して5秒停止する
+    """
     # 1. 画面全体の半透明黒Surfaceを作成
     black_out = pg.Surface((WIDTH,HEIGHT))
     black_out.fill((0,0,0))
@@ -89,7 +100,7 @@ def main():
     clock = pg.time.Clock()
     tmr = 0
     
-    #呼び出し
+     #呼び出し
     kk_imgs = get_kk_imgs()
     
     while True:
@@ -121,7 +132,7 @@ def main():
             gameover(screen)
             return
         
-        #呼び出し
+         #呼び出し
         kk_img = kk_imgs[tuple(sum_mv)]
         
         screen.blit(bg_img,[0,0])
