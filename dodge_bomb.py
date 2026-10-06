@@ -16,6 +16,7 @@ DELTA = {
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))    
 
+
 def get_kk_imgs() -> dict[tuple[int,int],pg.Surface]:
     """
     演習:3
@@ -74,6 +75,7 @@ def gameover(screen:pg.Surface) -> None:
     # 5. 5秒間停止
     time.sleep(5)
 
+
 def check_bound(obj_rct: pg.Rect) -> tuple[bool,bool]:
     yoko, tate = True, True
     if obj_rct.left < 0 or WIDTH < obj_rct.right:
@@ -81,6 +83,7 @@ def check_bound(obj_rct: pg.Rect) -> tuple[bool,bool]:
     if obj_rct.top < 0 or HEIGHT < obj_rct.bottom:
         tate = False
     return yoko, tate
+
 
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
